@@ -1,0 +1,7 @@
+__pycache__
+*.egg-info
+dist/
+build/
+.DS_Store
+*.vscode
+pythonenv3.8/
