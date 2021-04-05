@@ -12,6 +12,8 @@ You can omit tiles from beeing part of the labyrinth too:
 
 ![omit tiles](examples/maze_6x8.svg)
 
+![omit hex](examples/hexa.svg)
+
 ## Package and upload to pip
 
 @see [this tutorial](https://packaging.python.org/tutorials/packaging-projects/)

@@ -205,13 +205,22 @@ class Board:
                     break
                 current = current.negibour_at(wall_idx)
                 wall_idx = (wall_idx + 4) % 6
-                if current.x == 0 and current.y == 0:
+                if current.x == self.entry[0] and current.y == self.entry[1]:
                     done = True
             f.write(f'''" />
         <polyline stroke-width="1" fill="none" stroke="black" points="0,0 {width},0 {width},{height} 0,{height} 0,0" />
     </svg>''')
 
+    def omit_tile_at(self, pos_x: int, pos_y: int):
+        '''omits a single tile'''
+        self[pos_x][pos_y].omit()
+
     def omit_tiles(self, sequence: List[Tuple[int, int]], offset_x: int = 0, offset_y: int = 0):
+        '''omits a sequence of connected tiles'''
+        if len(sequence) == 1:
+            self.omit_tile_at(sequence[0][0], sequence[0][1])
+            return
+
         for i in range(len(sequence) - 1):
             from_x_idx = sequence[i][0] + offset_x
             from_y_idx = sequence[i][1] + offset_y

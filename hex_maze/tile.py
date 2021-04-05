@@ -23,6 +23,7 @@ class Tile:
     board: Board
     size: float
     margin: float
+    _omitted: bool = False
     _walls: list
     _cache: dict
 
@@ -74,9 +75,12 @@ class Tile:
     def negibour_at(self, wall_idx: int) -> Tile:
         return self.neighbours[wall_idx]
 
+    def omit(self):
+        self._omitted = True
+
     @property
     def is_taken(self):
-        return sum(self._walls) != 6
+        return self._omitted or sum(self._walls) != 6
 
     @property
     def untaken_neighbours(self):
