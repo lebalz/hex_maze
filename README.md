@@ -14,6 +14,11 @@ You can omit tiles from beeing part of the labyrinth too:
 
 ![omit hex](examples/hexa.svg)
 
+## Changelog
+
+- 0.0.2: fix bug that prevented a maze to be shuffled when the entry point was not `(0,0)`
+- 0.0.1: initial release
+
 ## Package and upload to pip
 
 @see [this tutorial](https://packaging.python.org/tutorials/packaging-projects/)

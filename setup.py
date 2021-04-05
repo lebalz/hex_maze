@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="hex_maze",
-    version="0.0.1",
+    version="0.0.2",
     author="Balthasar Hofer",
     author_email="lebalz@outlook.com",
     description="Create random hexagonal mazes",
