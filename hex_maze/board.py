@@ -6,7 +6,7 @@ import random
 from datetime import datetime
 from turtle import *
 from pathlib import Path
-random.seed(datetime.now())
+random.seed(datetime.timestamp(datetime.now()))
 
 
 class Board:
@@ -175,7 +175,7 @@ class Board:
         hideturtle()
         Screen().exitonclick()
 
-    def to_svg(self, name: str = None, size: float = 10, tile_margin: float = 0):
+    def to_svg(self, name: str = None, size: float = 10, stroke_width:float=3, tile_margin: float = 0, add_frame: bool = True):
         if name is None:
             name = f'maze_{self.dim_x}x{self.dim_y}.svg'
         if not name.endswith('.svg'):
@@ -190,7 +190,7 @@ class Board:
             f.write(f'''\
 <?xml version="1.0"?>
     <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="{height}" width="{width}">
-        <polyline stroke-width="1" fill="none" stroke="black" points="
+        <polyline stroke-width="{stroke_width}" fill="none" stroke="black" stroke-linecap="round" stroke-linejoin="round" points="
 ''')
 
             wall_idx = 0
@@ -207,18 +207,19 @@ class Board:
                 wall_idx = (wall_idx + 4) % 6
                 if current.x == self.entry[0] and current.y == self.entry[1]:
                     done = True
-            f.write(f'''" />
-        <polyline stroke-width="1" fill="none" stroke="black" points="0,0 {width},0 {width},{height} 0,{height} 0,0" />
-    </svg>''')
+            f.write('"/>\n')
+            if add_frame:
+                f.write(f'''<polyline stroke-width="{stroke_width}" fill="none" stroke="black" points="0,0 {width},0 {width},{height} 0,{height} 0,0" />\n''')
+            f.write('''</svg>''')
 
     def omit_tile_at(self, pos_x: int, pos_y: int):
         '''omits a single tile'''
         self[pos_x][pos_y].omit()
-
-    def omit_tiles(self, sequence: List[Tuple[int, int]], offset_x: int = 0, offset_y: int = 0):
+    
+    def omit_tiles(self, sequence: list[tuple[int, int]], offset_x: int = 0, offset_y: int = 0):
         '''omits a sequence of connected tiles'''
         if len(sequence) == 1:
-            self.omit_tile_at(sequence[0][0], sequence[0][1])
+            self.omit_tile_at(sequence[0][0] + offset_x, sequence[0][1] + offset_y)
             return
 
         for i in range(len(sequence) - 1):

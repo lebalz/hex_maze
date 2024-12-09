@@ -5,7 +5,7 @@ from typing import List, Tuple
 import random
 from datetime import datetime
 from turtle import *
-random.seed(datetime.now())
+random.seed(datetime.timestamp(datetime.now()))
 
 
 class Tile:
@@ -101,7 +101,8 @@ class Tile:
         dx = self._x - other.x
         dy = self._y - other.y
         if abs(dx) > 1 or abs(dy) > 1 or (dy == 0 and dx == 0):
-            raise f"The provided tile@[{other.x},{other.y}] is no neighbour of self@[{self._x},{self._y}]"
+            print(f"Tile@[{other.x},{other.y}] is no neighbour of self@[{self._x},{self._y}]")
+            # raise f"The provided tile@[{other.x},{other.y}] is no neighbour of self@[{self._x},{self._y}]"
         if dx == 0:
             if dy < 0:
                 return 3
