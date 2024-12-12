@@ -170,7 +170,7 @@ class Board:
                 break
             current = current.negibour_at(wall_idx)
             wall_idx = (wall_idx + 4) % 6
-            if current.x == 0 and current.y == 0:
+            if current.x == self.entry[0] and current.y == self.entry[1]:
                 done = True
         hideturtle()
         Screen().exitonclick()
